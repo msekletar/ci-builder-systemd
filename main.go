@@ -28,6 +28,8 @@ func setupHandlers() {
 func main() {
 	serverAddress := fmt.Sprintf("%s:%s", os.Getenv("OPENSHIFT_GO_IP"), os.Getenv("OPENSHIFT_GO_PORT"))
 
+	setupHandlers()
+
 	if err := http.ListenAndServe(serverAddress, nil); err != nil {
 		log.Fatalf("Failed to start the server: %s", err)
 	}
