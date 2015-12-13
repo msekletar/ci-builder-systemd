@@ -5,7 +5,6 @@ import (
 	"github.com/msekletar/hookserve/hookserve"
 	"log"
 	"os"
-	"strconv"
 	"time"
 )
 
@@ -14,14 +13,10 @@ const (
 )
 
 func main() {
-	port, err := strconv.Atoi(os.Getenv("OPENSHIFT_GO_PORT"))
-	if err != nil {
-		log.Fatalln("Invalid port number")
-	}
-
 	server := hookserve.NewServer()
 
-	server.Port = port
+	server.Port = os.Getenv("OPENSHIFT_GO_PORT")
+	server.Address = os.Getenv("OPENSHIFT_GO_IP")
 	server.Secret = hookSecret
 
 	server.GoListenAndServe()
