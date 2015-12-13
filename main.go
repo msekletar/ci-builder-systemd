@@ -9,6 +9,10 @@ import (
 	"time"
 )
 
+const (
+	hookSecret = "circus$Alert=shiver"
+)
+
 func main() {
 	port, err := strconv.Atoi(os.Getenv("OPENSHIFT_GO_PORT"))
 	if err != nil {
@@ -16,8 +20,10 @@ func main() {
 	}
 
 	server := hookserve.NewServer()
+
 	server.Port = port
-	server.Secret = "circus$Alert=shiver"
+	server.Secret = hookSecret
+
 	server.GoListenAndServe()
 
 	for {
