@@ -3,13 +3,20 @@ package main
 import (
 	"fmt"
 	"github.com/phayes/hookserve/hookserve"
+	"log"
 	"os"
+	"strconv"
 	"time"
 )
 
 func main() {
+	port, err := strconv.Atoi(os.Getenv("OPENSHIFT_GO_PORT"))
+	if err != nil {
+		log.Fatalln("Invalid port number")
+	}
+
 	server := hookserve.NewServer()
-	server.Port = os.Getenv("OPENSHIFT_GO_PORT")
+	server.Port = port
 	server.Secret = "circus$Alert=shiver"
 	server.GoListenAndServe()
 
