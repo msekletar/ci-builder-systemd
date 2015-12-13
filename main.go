@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/msekletar/hookserve/hookserve"
-	"log"
 	"os"
 	"time"
 )
