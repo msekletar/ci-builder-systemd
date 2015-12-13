@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/msekletar/hookserve/hookserve"
 	"os"
-	"time"
 )
 
 func main() {
@@ -15,12 +14,7 @@ func main() {
 
 	server.GoListenAndServe()
 
-	for {
-		select {
-		case event := <-server.Events:
-			fmt.Println(event.Owner + " " + event.Repo + " " + event.Branch + " " + event.Commit)
-		default:
-			time.Sleep(100)
-		}
+	for event := range server.Events {
+		fmt.Println(event.Owner + " " + event.Repo + " " + event.Branch + " " + event.Commit)
 	}
 }
