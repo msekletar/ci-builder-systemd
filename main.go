@@ -7,16 +7,11 @@ import (
 	"time"
 )
 
-const (
-	hookSecret = "circus$Alert=shiver"
-)
-
 func main() {
 	server := hookserve.NewServer()
 
 	server.Port = os.Getenv("OPENSHIFT_GO_PORT")
 	server.Address = os.Getenv("OPENSHIFT_GO_IP")
-	server.Secret = hookSecret
 
 	server.GoListenAndServe()
 
