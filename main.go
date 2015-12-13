@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/phayes/hookserve/hookserve"
+	"github.com/msekletar/hookserve/hookserve"
 	"log"
 	"os"
 	"strconv"
