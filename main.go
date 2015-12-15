@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/msekletar/hookserve/hookserve"
 	"io/ioutil"
 	"log"
 	"os"
+
+	"github.com/msekletar/hookserve/hookserve"
 )
 
 func main() {
