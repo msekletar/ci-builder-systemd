@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 	"os/signal"
 
+	"github.com/libgit2/git2go"
 	"github.com/msekletar/hookserve/hookserve"
 )
 
@@ -37,7 +37,9 @@ func main() {
 	}()
 
 	for event := range server.Events {
-		fmt.Println(event.Owner + " " + event.Repo + " " + event.Branch + " " + event.Commit)
+		if err = processEvent(event); err != nil {
+			log.Printf("Failed to process Github event: %s", err)
+		}
 	}
 }
 
@@ -51,4 +53,12 @@ func createWorkdir() (string, error) {
 
 	return tempDir, nil
 
+}
+
+func processEvent(event hookserve.Event) error {
+	_, err := git.Clone("git://github.com/"+event.Owner+"/"+event.Repo+".git", "systemd-"+event.Branch+"-"+event.Commit, &git.CloneOptions{})
+	if err != nil {
+		return err
+	}
+	return nil
 }
