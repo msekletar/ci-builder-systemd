@@ -37,9 +37,11 @@ func main() {
 	}()
 
 	for event := range server.Events {
-		if err = processEvent(event); err != nil {
-			log.Printf("Failed to process Github event: %s", err)
-		}
+		go func() {
+			if err = processEvent(event); err != nil {
+				log.Printf("Failed to process Github event: %s", err)
+			}
+		}()
 	}
 }
 
